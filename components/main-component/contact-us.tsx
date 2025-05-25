@@ -8,10 +8,11 @@ export default function ContactUs() {
     email: '',
     message: ''
   });
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -19,17 +20,17 @@ export default function ContactUs() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       console.log('Form submitted:', formData);
       setFormData({ fullName: '', email: '', message: '' });
       setIsSubmitting(false);
       setSubmitted(true);
-      
+
       setTimeout(() => {
         setSubmitted(false);
       }, 3000);
@@ -40,14 +41,14 @@ export default function ContactUs() {
     <div className="flex-1 bg-gray-50 overflow-auto p-6">
       <div className="max-w-3xl mx-auto bg-white rounded shadow p-6">
         <h1 className="text-2xl font-bold text-blue-600 mb-6">Contact Us</h1>
-        
+
         {submitted && (
           <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4">
             Thank you for your message! We'll get back to you soon.
           </div>
         )}
-        
-        <div className="space-y-4">
+
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
               Full Name
@@ -69,7 +70,7 @@ export default function ContactUs() {
               />
             </div>
           </div>
-          
+
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
@@ -92,7 +93,7 @@ export default function ContactUs() {
               />
             </div>
           </div>
-          
+
           <div>
             <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
               Message
@@ -114,30 +115,30 @@ export default function ContactUs() {
               />
             </div>
           </div>
-          
+
           <div>
             <button
-              onClick={handleSubmit}
+              type="submit"
               disabled={isSubmitting}
               className="w-full py-2 px-4 border border-transparent rounded shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
             >
               {isSubmitting ? 'Sending...' : 'Send Message'}
             </button>
           </div>
-        </div>
-        
+        </form>
+
         <div className="mt-8 pt-6 border-t border-gray-200">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <h3 className="text-lg font-medium text-gray-900">Email Us</h3>
               <p className="mt-1 text-sm text-gray-600">support@maker-checker.com</p>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-medium text-gray-900">Call Us</h3>
               <p className="mt-1 text-sm text-gray-600">+1 (555) 123-4567</p>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-medium text-gray-900">Office Hours</h3>
               <p className="mt-1 text-sm text-gray-600">Mon-Fri: 9AM - 5PM</p>

@@ -44,12 +44,13 @@ export default function ChangeRequestForm() {
 
       // Save to localStorage
       try {
-        const existingData = JSON.parse(localStorage.getItem('changeRequests')) || [];
-        const updatedData = [...existingData, formData];
-        localStorage.setItem('changeRequests', JSON.stringify(updatedData));
-      } catch (e) {
-        console.error('Error saving to localStorage', e);
-      }
+  const existingData = JSON.parse(localStorage.getItem('changeRequests') ?? '[]');
+  const updatedData = [...existingData, formData];
+  localStorage.setItem('changeRequests', JSON.stringify(updatedData));
+} catch (e) {
+  console.error('Error saving to localStorage', e);
+}
+
 
       setSuccessMessage('Change request successfully submitted!');
       setIsSubmitting(false);
